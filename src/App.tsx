@@ -15,20 +15,32 @@ function App() {
 
   let [filter, setFilter] = useState<FilterValuesType>("all");
 
-  // Удаление списков-----------------------------------------------
+  // Удаление задач-----------------------------------------------
   function removeTask(id: string) {
     let filterTasks = tasks.filter((t) => t.id !== id);
+
     setTasks(filterTasks);
   }
 
-  // Добавление списков--------------------------------------------
+  // Добавление задач--------------------------------------------
   function addTask(title: string) {
     let newTask = { id: v1(), title: title, isDone: false };
     let newTasks = [newTask, ...tasks];
+
     setTasks(newTasks);
   }
 
-  // фильтрация списков----------------------------------------------
+  // Изменение статуса задачи---------------------------------------
+  function changeStatus(taskId: string, isDone: boolean) {
+    let task = tasks.find((t) => t.id === taskId);
+    if (task) {
+      task.isDone = isDone;
+    }
+
+    setTasks([...tasks]);
+  }
+
+  // фильтрация задач----------------------------------------------
   let tasksForTodoList = tasks;
 
   if (filter === "completed") {
@@ -42,11 +54,19 @@ function App() {
     setFilter(value);
   }
 
-  //================================================================
+  //====================================================================================
 
   return (
     <div className='App'>
-      <Todolist title='What to learn' tasks={tasksForTodoList} removeTask={removeTask} changeFilter={changeFilter} addTask={addTask} />
+      <Todolist
+        title='What to learn'
+        tasks={tasksForTodoList}
+        removeTask={removeTask}
+        changeFilter={changeFilter}
+        addTask={addTask}
+        changeStatus={changeStatus}
+        filter={filter}
+      />
     </div>
   );
 }
