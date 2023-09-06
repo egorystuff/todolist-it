@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./App.css";
 import { TaskType, Todolist } from "./Todolist";
 import { v1 } from "uuid";
+import { AddItemForm } from "./AddItemForm";
 
 // Типы данных
 export type FilterValuesType = "all" | "completed" | "active";
@@ -9,6 +10,10 @@ type TodoListType = {
   id: string;
   title: string;
   filter: FilterValuesType;
+};
+
+type TasksStateType = {
+  [key: string]: Array<TaskType>;
 };
 
 function App() {
@@ -66,11 +71,11 @@ function App() {
   // Массив тодолистов
   let [todoLists, setTodoList] = useState<Array<TodoListType>>([
     { id: todoListId1, title: "What to learn", filter: "all" },
-    { id: todoListId2, title: "What to buy", filter: "completed" },
+    { id: todoListId2, title: "What to buy", filter: "all" },
   ]);
 
   // Оъект массивов сойств для тодолистов
-  let [tasks, setTasks] = useState({
+  let [tasks, setTasks] = useState<TasksStateType>({
     [todoListId1]: [
       { id: v1(), title: "CSS & HTML", isDone: true },
       { id: v1(), title: "JS", isDone: true },
@@ -79,12 +84,27 @@ function App() {
     ],
     [todoListId2]: [
       { id: v1(), title: "Book", isDone: true },
-      { id: v1(), title: "Pencil", isDone: true },
+      { id: v1(), title: "Pencil", isDone: false },
     ],
   });
 
+  function addTodoList(title: string) {
+    let todoList: TodoListType = {
+      id: v1(),
+      filter: "all",
+      title: title,
+    };
+
+    setTodoList([todoList, ...todoLists]);
+    setTasks({
+      ...tasks,
+      [todoList.id]: [],
+    });
+  }
+
   return (
     <div className='App'>
+      <AddItemForm addItem={addTodoList} />
       {todoLists.map((tl) => {
         // условия фильтрации задач----------------------------------------------
         let tasksForTodoList = tasks[tl.id];
