@@ -26,6 +26,15 @@ function App() {
     setTasks({ ...tasks });
   }
 
+  //изменение заголовка задачи
+  function changeTodoListTitle(newTitle: string, id: string) {
+    const todoList = todoLists.find((tl) => tl.id === id);
+    if (todoList) {
+      todoList.title = newTitle;
+      setTodoList([...todoLists]);
+    }
+  }
+
   // Добавление задач--------------------------------------------
   function addTask(title: string, todoListId: string) {
     let newTask = { id: v1(), title: title, isDone: false };
@@ -42,6 +51,16 @@ function App() {
     let task = tasksObj.find((t) => t.id === taskId);
     if (task) {
       task.isDone = isDone;
+      setTasks({ ...tasks });
+    }
+  }
+
+  //изменение содержания задачи
+  function changeTitle(taskId: string, newTitle: string, todoListId: string) {
+    let tasksObj = tasks[todoListId];
+    let task = tasksObj.find((t) => t.id === taskId);
+    if (task) {
+      task.title = newTitle;
       setTasks({ ...tasks });
     }
   }
@@ -125,9 +144,11 @@ function App() {
             removeTask={removeTask}
             changeFilter={changeFilter}
             addTask={addTask}
-            changeStatus={changeStatus}
+            changeTaskStatus={changeStatus}
+            changeTaskTitle={changeTitle}
             filter={tl.filter}
             removeTodoList={removeTodoList}
+            changeTodoListTitle={changeTodoListTitle}
           />
         );
       })}
