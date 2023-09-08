@@ -1,4 +1,6 @@
+import { IconButton, TextField } from "@mui/material";
 import React, { ChangeEvent, KeyboardEvent, useState } from "react";
+import LibraryAddIcon from "@mui/icons-material/LibraryAdd";
 
 type AddItemFormPropsType = {
   addItem: (title: string) => void;
@@ -33,14 +35,20 @@ export function AddItemForm(props: AddItemFormPropsType) {
 
   return (
     <div>
-      <input
+      <TextField
+        style={{ marginBottom: "30px" }}
+        variant='outlined'
+        label='Type value'
         value={newTaskTitle}
         onChange={onNewTitleChangeHandler}
         onKeyDown={onKeyDownHandler}
-        className={error ? "error" : ""}
+        error={!!error}
+        helperText={error}
       />
-      <button onClick={addItem}>Add</button>
-      {error && <div className='error-message'>{error}</div>}
+
+      <IconButton onClick={addItem} aria-label='add'>
+        <LibraryAddIcon />
+      </IconButton>
     </div>
   );
 }
