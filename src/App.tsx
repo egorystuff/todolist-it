@@ -8,7 +8,8 @@ import MenuIcon from "@mui/icons-material/Menu";
 
 // Типы данных
 export type FilterValuesType = "all" | "completed" | "active";
-type TodoListType = {
+
+export type TodoListType = {
   id: string;
   title: string;
   filter: FilterValuesType;
