@@ -15,11 +15,36 @@ export type TodoListType = {
   filter: FilterValuesType;
 };
 
-type TasksStateType = {
+export type TasksStateType = {
   [key: string]: Array<TaskType>;
 };
 
 function App() {
+  let todoListId1 = v1();
+  let todoListId2 = v1();
+
+  // Массив тодолистов
+  let [todoLists, setTodoList] = useState<Array<TodoListType>>([
+    { id: todoListId1, title: "Task list: What to learn", filter: "all" },
+    { id: todoListId2, title: "Task list: What to buy", filter: "all" },
+  ]);
+
+  // Оъект массивов свойств для ТОДО листов
+  let [tasks, setTasks] = useState<TasksStateType>({
+    [todoListId1]: [
+      { id: v1(), title: "CSS & HTML", isDone: true },
+      { id: v1(), title: "JS", isDone: true },
+      { id: v1(), title: "react", isDone: false },
+      { id: v1(), title: "Redux", isDone: false },
+    ],
+    [todoListId2]: [
+      { id: v1(), title: "Book", isDone: true },
+      { id: v1(), title: "Pencil", isDone: false },
+    ],
+  });
+
+  //for tasks====================================================================================
+
   // Удаление задач-----------------------------------------------
   function removeTask(id: string, todoListId: string) {
     let task = tasks[todoListId];
@@ -27,15 +52,6 @@ function App() {
     tasks[todoListId] = filterTasks;
 
     setTasks({ ...tasks });
-  }
-
-  //изменение заголовка задачи
-  function changeTodoListTitle(newTitle: string, id: string) {
-    const todoList = todoLists.find((tl) => tl.id === id);
-    if (todoList) {
-      todoList.title = newTitle;
-      setTodoList([...todoLists]);
-    }
   }
 
   // Добавление задач--------------------------------------------
@@ -59,12 +75,23 @@ function App() {
   }
 
   //изменение содержания задачи
-  function changeTitle(taskId: string, newTitle: string, todoListId: string) {
+  function changeTaskTitle(taskId: string, newTitle: string, todoListId: string) {
     let tasksObj = tasks[todoListId];
     let task = tasksObj.find((t) => t.id === taskId);
     if (task) {
       task.title = newTitle;
       setTasks({ ...tasks });
+    }
+  }
+
+  //for todolists====================================================================================
+
+  //изменение заголовка задачи
+  function changeTodoListTitle(newTitle: string, id: string) {
+    const todoList = todoLists.find((tl) => tl.id === id);
+    if (todoList) {
+      todoList.title = newTitle;
+      setTodoList([...todoLists]);
     }
   }
 
@@ -84,31 +111,6 @@ function App() {
     delete tasks[todoListId];
     setTasks({ ...tasks });
   }
-
-  //====================================================================================
-
-  let todoListId1 = v1();
-  let todoListId2 = v1();
-
-  // Массив тодолистов
-  let [todoLists, setTodoList] = useState<Array<TodoListType>>([
-    { id: todoListId1, title: "Task list: What to learn", filter: "all" },
-    { id: todoListId2, title: "Task list: What to buy", filter: "all" },
-  ]);
-
-  // Оъект массивов свойств для ТОДО листов
-  let [tasks, setTasks] = useState<TasksStateType>({
-    [todoListId1]: [
-      { id: v1(), title: "CSS & HTML", isDone: true },
-      { id: v1(), title: "JS", isDone: true },
-      { id: v1(), title: "react", isDone: false },
-      { id: v1(), title: "Redux", isDone: false },
-    ],
-    [todoListId2]: [
-      { id: v1(), title: "Book", isDone: true },
-      { id: v1(), title: "Pencil", isDone: false },
-    ],
-  });
 
   // Добавление ТОДО листов
   function addTodoList(title: string) {
@@ -169,7 +171,7 @@ function App() {
                     changeFilter={changeFilter}
                     addTask={addTask}
                     changeTaskStatus={changeStatus}
-                    changeTaskTitle={changeTitle}
+                    changeTaskTitle={changeTaskTitle}
                     filter={tl.filter}
                     removeTodoList={removeTodoList}
                     changeTodoListTitle={changeTodoListTitle}

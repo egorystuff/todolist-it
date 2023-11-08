@@ -63,19 +63,19 @@ export const todolistsReducer = (state: Array<TodoListType>, action: ActionsType
 };
 
 //функции-криэйторы для генератора экшенов, которые используются в тестах
-export const RemoveTodolistAC = (todolistId: string): RemoveTodolistActionType => {
+export const removeTodolistAC = (todolistId: string): RemoveTodolistActionType => {
   return { type: "REMOVE-TODOLIST", id: todolistId };
 };
 
-export const AddTodolistAC = (todolistTitle: string): AddTodolistActionType => {
+export const addTodolistAC = (todolistTitle: string): AddTodolistActionType => {
   return { type: "ADD-TODOLIST", title: todolistTitle };
 };
 
-export const ChangeTodolistTitleAC = (todolistId: string, todolistTitle: string): ChangeTodolistTitleActionType => {
+export const changeTodolistTitleAC = (todolistId: string, todolistTitle: string): ChangeTodolistTitleActionType => {
   return { type: "CHANGE-TODOLIST-TITLE", id: todolistId, title: todolistTitle };
 };
 
-export const ChangeTodolistFilterAC = (
+export const changeTodolistFilterAC = (
   todolistId: string,
   todolistFilter: FilterValuesType,
 ): ChangeTodolistFilterActionType => {
