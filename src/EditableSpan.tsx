@@ -6,7 +6,7 @@ export type EditableSpanPropsType = {
   onChange: (newValue: string) => void;
 };
 
-export function EditableSpan(props: EditableSpanPropsType) {
+export const EditableSpan = (props: EditableSpanPropsType) => {
   let [editMode, setEditMode] = useState(false);
   let [title, setTitle] = useState("");
 
@@ -20,9 +20,19 @@ export function EditableSpan(props: EditableSpanPropsType) {
   };
   const onChangeTitleHandler = (e: ChangeEvent<HTMLInputElement>) => setTitle(e.currentTarget.value);
 
-  return editMode ? (
-    <TextField variant='outlined' value={title} onChange={onChangeTitleHandler} onBlur={activateViewMode} autoFocus />
-  ) : (
-    <span onDoubleClick={activateEditMode}>{props.title}</span>
+  return (
+    <>
+      {editMode ? (
+        <TextField
+          variant='outlined'
+          value={title}
+          onChange={onChangeTitleHandler}
+          onBlur={activateViewMode}
+          autoFocus
+        />
+      ) : (
+        <span onDoubleClick={activateEditMode}>{props.title}</span>
+      )}
+    </>
   );
-}
+};
