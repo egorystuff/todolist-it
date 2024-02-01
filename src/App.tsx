@@ -31,7 +31,7 @@ export type TasksStateType = {
 
 //-------------------------------------------------------------------------------------------------------------------------------------------
 
-const AppWithRedux: React.FC = () => {
+const App: React.FC = () => {
   const dispatch = useDispatch();
   const todoLists = useSelector<AppRootState, Array<TodoListType>>((state) => state.todolists);
 
@@ -76,8 +76,6 @@ const AppWithRedux: React.FC = () => {
 
           <Grid container spacing={15}>
             {todoLists.map((tl) => {
-              // условия фильтрации задач----------------------------------------------
-
               return (
                 <Grid item>
                   <Paper style={{ padding: "15px" }} elevation={5}>
@@ -101,4 +99,4 @@ const AppWithRedux: React.FC = () => {
   );
 };
 
-export default AppWithRedux;
+export default App;

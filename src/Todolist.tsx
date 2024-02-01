@@ -45,6 +45,7 @@ export function Todolist(props: PropsType) {
   };
 
   //-------------------------------------------------------------------------------------------------------------------------------------------
+  // фильтрация тасок
 
   let tasksForTodoList = tasks;
 
@@ -72,7 +73,7 @@ export function Todolist(props: PropsType) {
       />
 
       <div>
-        {tasks.map((t) => {
+        {tasksForTodoList.map((t) => {
           const onRemoveHandler = () => dispatch(removeTaskAC(t.id, props.id));
 
           const onChangeStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
