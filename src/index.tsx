@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 // import App from "./App";
 // import AppWithRedusers from "./AppWithReducers";
-import AppWithRedux from "./AppWithRedux";
+import AppWithRedux from "./App";
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
 
