@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from "react";
+import React, { ChangeEvent, useCallback } from "react";
 import { FilterValuesType } from "./App";
 import { AddItemForm } from "./AddItemForm";
 import { EditableSpan } from "./EditableSpan";
@@ -28,6 +28,7 @@ type PropsType = {
 //-------------------------------------------------------------------------------------------------------------------------------------------
 
 export function Todolist(props: PropsType) {
+  console.log("todolist");
   const dispatch = useDispatch();
 
   const tasks = useSelector<AppRootState, Array<TaskType>>((state) => state.tasks[props.id]);
@@ -66,11 +67,7 @@ export function Todolist(props: PropsType) {
           <DeleteIcon />
         </IconButton>
       </h3>
-      <AddItemForm
-        addItem={(title) => {
-          dispatch(addTaskAC(title, props.id));
-        }}
-      />
+      <AddItemForm addItem={useCallback((title) => dispatch(addTaskAC(title, props.id)), [])} />
 
       <div>
         {tasksForTodoList.map((t) => {

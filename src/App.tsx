@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 
@@ -47,9 +47,9 @@ const App: React.FC = () => {
     dispatch(removeTodolistAC(todoListId));
   }
 
-  function addTodoList(title: string) {
+  const addTodoList = useCallback((title: string) => {
     dispatch(addTodolistAC(title));
-  }
+  }, []);
 
   //-------------------------------------------------------------------------------------------------------------------------------------------
 
