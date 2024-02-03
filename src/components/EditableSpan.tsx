@@ -1,3 +1,5 @@
+import React from "react";
+
 import { TextField } from "@mui/material";
 import { ChangeEvent, useState } from "react";
 
@@ -8,7 +10,8 @@ export type EditableSpanPropsType = {
 
 //-------------------------------------------------------------------------------------------------------------
 
-export const EditableSpan = (props: EditableSpanPropsType) => {
+export const EditableSpan = React.memo((props: EditableSpanPropsType) => {
+  console.log("span");
   let [editMode, setEditMode] = useState(false);
   let [title, setTitle] = useState("");
 
@@ -37,4 +40,4 @@ export const EditableSpan = (props: EditableSpanPropsType) => {
       )}
     </>
   );
-};
+});

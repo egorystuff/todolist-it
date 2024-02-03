@@ -4,7 +4,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 
 import "./App.css";
 import { TaskType, Todolist } from "./Todolist";
-import { AddItemForm } from "./AddItemForm";
+import { AddItemForm } from "./components/AddItemForm";
 import {
   addTodolistAC,
   changeTodolistFilterAC,
@@ -35,21 +35,19 @@ const App: React.FC = () => {
   const dispatch = useDispatch();
   const todoLists = useSelector<AppRootState, Array<TodoListType>>((state) => state.todolists);
 
-  function changeTodoListTitle(newTitle: string, id: string) {
-    dispatch(changeTodolistTitleAC(newTitle, id));
-  }
+  const changeTodoListTitle = useCallback(
+    (newTitle: string, id: string) => dispatch(changeTodolistTitleAC(newTitle, id)),
+    [dispatch],
+  );
 
-  function changeFilter(value: FilterValuesType, todoListId: string) {
-    dispatch(changeTodolistFilterAC(value, todoListId));
-  }
+  const changeFilter = useCallback(
+    (value: FilterValuesType, todoListId: string) => dispatch(changeTodolistFilterAC(value, todoListId)),
+    [dispatch],
+  );
 
-  function removeTodoList(todoListId: string) {
-    dispatch(removeTodolistAC(todoListId));
-  }
+  const removeTodoList = useCallback((todoListId: string) => dispatch(removeTodolistAC(todoListId)), [dispatch]);
 
-  const addTodoList = useCallback((title: string) => {
-    dispatch(addTodolistAC(title));
-  }, []);
+  const addTodoList = useCallback((title: string) => dispatch(addTodolistAC(title)), [dispatch]);
 
   //-------------------------------------------------------------------------------------------------------------------------------------------
 
